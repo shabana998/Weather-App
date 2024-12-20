@@ -6,12 +6,12 @@ const humidity = document.querySelector('.humidity');
 const windSpeed = document.querySelector('.wind-speed');
 const temp = document.querySelector('.temp');
 const description = document.querySelector('.description');
-const icon = document.querySelector('.icon'); // Placeholder for weather icon
+const weatherImage = document.querySelector('.weather-icon'); // Image tag for weather images
 
 const input = document.querySelector('input');
 const button = document.querySelector('button');
 
-// Function to fetch weather
+// Function to fetch weather data
 async function fetchWeather(city) {
     try {
         const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${apiKey}`;
@@ -23,7 +23,6 @@ async function fetchWeather(city) {
         }
 
         const data = await response.json();
-        console.log(data);
         updateWeather(data);
     } catch (error) {
         console.error("Error fetching weather data:", error);
@@ -31,18 +30,32 @@ async function fetchWeather(city) {
     }
 }
 
-// Function to update weather details in the DOM
+// Function to update weather details and dynamic image
 function updateWeather(data) {
     cityName.textContent = data.name;
-    humidity.textContent = `${data.main.humidity} %`; // Humidity with %
+    humidity.textContent = `${data.main.humidity} %`;
     windSpeed.textContent = `${(data.wind.speed * 3.6).toFixed(1)} km/h`; // Convert m/s to km/h
-    temp.textContent = `${Math.round(data.main.temp)} °C`; // Rounded temperature
+    temp.textContent = `${Math.round(data.main.temp)} °C`;
     description.textContent = data.weather[0].description;
+    console.log(data);
 
-    // Add weather icon (from OpenWeatherMap)
-    const iconCode = data.weather[0].icon;
-    icon.src = `https://openweathermap.org/img/wn/${iconCode}@2x.png`;
-    icon.alt = data.weather[0].description;
+    // Dynamically update weather image
+    const weatherDesc = data.weather[0].description.toLowerCase(); // Ensure lowercase to match file names
+    if (data.weather[0].main=="Clouds") {
+        weatherImage.src = "images/clouds.png"
+    }
+   else if (data.weather[0].main=="Clear") {
+    weatherImage.src = "images/clear.png"
+}
+   else if (data.weather[0].main=="Rain") {
+    weatherImage.src = "images/rain.png"
+}
+   else if (data.weather[0].main=="Drizzle") {
+    weatherImage.src = "images/drizzel.png"
+}
+   else if (data.weather[0].main=="Mist") {
+    weatherImage.src = "images/mist.png"
+}
 }
 
 // Event Listener for search button

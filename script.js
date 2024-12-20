@@ -42,19 +42,19 @@ function updateWeather(data) {
     // Dynamically update weather image
     const weatherDesc = data.weather[0].description.toLowerCase(); // Ensure lowercase to match file names
     if (data.weather[0].main=="Clouds") {
-        weatherImage.src = "images/clouds.png"
+        weatherImage.src = "clouds.png"
     }
    else if (data.weather[0].main=="Clear") {
-    weatherImage.src = "images/clear.png"
+    weatherImage.src = "clear.png"
 }
    else if (data.weather[0].main=="Rain") {
-    weatherImage.src = "images/rain.png"
+    weatherImage.src = "rain.png"
 }
    else if (data.weather[0].main=="Drizzle") {
-    weatherImage.src = "images/drizzel.png"
+    weatherImage.src = "drizzel.png"
 }
    else if (data.weather[0].main=="Mist") {
-    weatherImage.src = "images/mist.png"
+    weatherImage.src = "mist.png"
 }
 }
 
